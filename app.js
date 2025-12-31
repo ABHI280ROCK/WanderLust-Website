@@ -12,6 +12,8 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const wrapAsync = require("./utils/wrapAsync.js");
+const Listing = require("./models/listing.js");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
@@ -63,14 +65,6 @@ const sessionOptions = {
     },
 };
 
-
-// Root Route
-// app.get("/", wrapAsync( async (req, res) => {
-//     // const allListings = await Listing.find({});
-//     // res.render("listings/index.ejs", {allListings});
-//     res.send("Hi, I am Root");
-// }));
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -92,6 +86,11 @@ app.use((req, res, next) => {
 });
 
 
+// Root Route
+app.get("/", wrapAsync( async (req, res) => {
+    const allListings = await Listing.find({});
+    res.render("listings/index.ejs", {allListings});
+}));
 // Listing Route
 app.use("/listings", listingRouter);
 // Review Route
