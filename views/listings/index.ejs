@@ -1,6 +1,5 @@
 <% layout("/layouts/boilerplate") %>
 
-    </div>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 mt-3">
         <%   for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
@@ -18,5 +17,3 @@
         </a>    
     <%   } %>
     </div>    
-
-<script src="../JS/switch.js"></script>
